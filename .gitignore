@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build and output artifacts
+out/
+dist/
+build/
+qa/frames/
+qa/report.json
+*.zip
+*.mp4
+*.raw.mp3
+test_*.mp3
+tmp*
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# OS & Logs
+.DS_Store
+*.log
+__pycache__/
+*.pyc

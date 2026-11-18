@@ -1,0 +1,70 @@
+name: Render Reel
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - 'beats.json'
+      - 'words.json'
+      - '.github/workflows/render.yml'
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Ensure Chromium
+        run: npx remotion browser ensure
+
+      - name: Ensure FFmpeg
+        run: ffmpeg -version || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+
+      - name: Preflight Quality Gate
+        run: |
+          pip install numpy
+          python3 scripts/preflight.py
+
+      - name: Render Remotion composition
+        run: |
+          npx remotion render src/index.ts Reel out/raw.mp4 \
+            --concurrency=2 \
+            --codec=h264 \
+            --crf=18 \
+            --pixel-format=yuv420p
+
+      - name: Mix audio
+        run: bash scripts/mix_audio.sh
+
+      - name: QA frames
+        run: |
+          pip install pillow
+          python3 scripts/qa_frames.py out/tech_harness2_hinglish_v3.mp4 beats.json words.json qa
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reel-output
+          path: |
+            out/tech_harness2_hinglish_v3.mp4
+            out/final.mp4
+            qa/frames/*.png
+            qa/report.json
+          retention-days: 7
