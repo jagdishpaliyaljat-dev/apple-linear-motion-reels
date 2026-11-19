@@ -117,11 +117,12 @@ export const WordCaption: React.FC<WordCaptionProps> = ({
                   <span
                     key={idx}
                     style={{
+                      position: 'relative',
                       fontFamily: "'Instrument Serif', Georgia, serif",
                       fontSize: 58,
                       fontStyle: 'italic',
                       fontWeight: 400,
-                      color: accentTextColor,
+                      color: isLight ? '#2563EB' : accentTextColor,
                       lineHeight: 1,
                       letterSpacing: '0.02em',
                       textTransform: 'lowercase',
@@ -130,8 +131,26 @@ export const WordCaption: React.FC<WordCaptionProps> = ({
                       filter: `blur(${wordBlur}px)`,
                       opacity: wordOpacity,
                       display: 'inline-block',
+                      padding: '2px 8px',
+                      margin: '0 4px',
                     }}
                   >
+                    {/* Apple / Linear Reference Selection Box with 4 white circle handles */}
+                    <span
+                      style={{
+                        position: 'absolute',
+                        inset: '-3px -6px',
+                        border: '1.5px solid #3B82F6',
+                        borderRadius: 4,
+                        backgroundColor: 'rgba(59, 130, 246, 0.08)',
+                        pointerEvents: 'none',
+                      }}
+                    >
+                      <span style={{ position: 'absolute', top: -4, left: -4, width: 7, height: 7, borderRadius: '50%', backgroundColor: '#FFFFFF', border: '1.5px solid #3B82F6', boxShadow: '0 0 4px rgba(59, 130, 246, 0.5)' }} />
+                      <span style={{ position: 'absolute', top: -4, right: -4, width: 7, height: 7, borderRadius: '50%', backgroundColor: '#FFFFFF', border: '1.5px solid #3B82F6', boxShadow: '0 0 4px rgba(59, 130, 246, 0.5)' }} />
+                      <span style={{ position: 'absolute', bottom: -4, left: -4, width: 7, height: 7, borderRadius: '50%', backgroundColor: '#FFFFFF', border: '1.5px solid #3B82F6', boxShadow: '0 0 4px rgba(59, 130, 246, 0.5)' }} />
+                      <span style={{ position: 'absolute', bottom: -4, right: -4, width: 7, height: 7, borderRadius: '50%', backgroundColor: '#FFFFFF', border: '1.5px solid #3B82F6', boxShadow: '0 0 4px rgba(59, 130, 246, 0.5)' }} />
+                    </span>
                     {cleanW.toLowerCase()}
                   </span>
                 );
