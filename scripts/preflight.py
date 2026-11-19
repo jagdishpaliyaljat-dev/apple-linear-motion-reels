@@ -129,6 +129,38 @@ else:
 gi = open(".gitignore").read() if os.path.exists(".gitignore") else ""
 (ok if re.search(r"^\.env\s*$", gi, re.M) else fail)("env_ignored", ".env must be listed in .gitignore")
 
+# 8. viral hook gate (Beat 1 must be 8-12 words, no greetings, tension verified)
+if os.path.exists("script.txt"):
+    try:
+        lines = [line.strip() for line in open("script.txt", encoding="utf-8").readlines() if line.strip()]
+        if not lines:
+            fail("viral_hook", "script.txt is empty")
+        else:
+            hook = lines[0]
+            words = hook.split()
+            w_count = len(words)
+            hook_lower = hook.lower()
+            
+            forbidden = ["namaste", "hello", "hey", "aaj ke video", "aaj hum", "is video mein", "welcome", "dosto", "friends"]
+            has_forbidden = any(f in hook_lower for f in forbidden)
+            
+            contrast_words = ["nahi", "lekin", "par", "balki", "instead", "control", "problem", "badal", "secret", "phasa", "freeze", "fail", "wrong", "trap", "stop"]
+            has_num = bool(re.search(r"\d+", hook))
+            has_q = "?" in hook or any(w in hook_lower for w in ["kyun", "kaise", "kya", "kab"])
+            has_contrast = any(w in hook_lower for w in contrast_words)
+            has_tension = has_num or has_q or has_contrast
+            
+            if has_forbidden:
+                fail("viral_hook", f"hook contains forbidden intro/greeting: '{hook}'")
+            elif not (8 <= w_count <= 12):
+                fail("viral_hook", f"hook must be 8-12 words, got {w_count} words: '{hook}'")
+            elif not has_tension:
+                fail("viral_hook", f"hook missing number, question or contrast: '{hook}'")
+            else:
+                ok("viral_hook", f"{w_count} words, tension verified: '{hook[:45]}...'")
+    except Exception as e:
+        fail("viral_hook", f"error reading script.txt: {e}")
+
 print(f"\nRESULT: {len(OKS)} passed, {len(FAILS)} failed")
 if FAILS:
     print("PREFLIGHT FAILED -> do not render. Fix:", ", ".join(FAILS))

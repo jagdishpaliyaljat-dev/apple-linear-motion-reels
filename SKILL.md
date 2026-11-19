@@ -6,6 +6,7 @@ description: Autonomous video director for studio-grade motion-graphic reels (10
 # Apple / Linear Motion Reels
 
 ## HARD GATES
+- viral hook gate: Beat 1 (0–3s) must open with an 8–12 word viral hook stopping the scroll in <2s, creating an open loop with payoff at the end, and having a number, contrast, or question. Script checklist table must pass 6/6 before TTS synthesis.
 - verified voice pitch gate: Voiceover must use verified male voice (median F0 80–200 Hz, e.g. ElevenLabs Voice R / hi-IN-MadhurNeural).
 - natural pronunciation standards: Common English loanwords ("exam", "examiner", "AI", "active recall", "summarize") must use natural, clean phonetics without robotic accents or over-inflected Devanagari spellings.
 - motion-graphics sound effects architecture: Visual animation entries must have synchronized tactile UI sound effects (pops on bento/stat cards, clicks on code/terminal, whooshes on beat cuts, thuds on danger alerts, risers/sub-drops on climaxes, chimes on metric leaps).
@@ -15,6 +16,52 @@ description: Autonomous video director for studio-grade motion-graphic reels (10
 - no invented names/quotes/stats: All labels, benchmark numbers, model names, and tags must exist in research.json from real sources.
 - fill the canvas (>=70% below caption): Active content bounding box must cover at least 70% of canvas height below the caption; main card width >= 88%.
 - preflight must pass before any render: python3 scripts/preflight.py must exit 0 with "PREFLIGHT OK" prior to dispatching any render.
+
+## HOOK RULES — SCRIPT MUST OPEN WITH A VIRAL HOOK (NON-NEGOTIABLE)
+
+### Where it lives
+The FIRST beat (0–3 seconds) of `script.txt` is the hook. Nothing else may come before it: no "Namaste", no "aaj hum baat karenge", no topic introduction, no logo line.
+
+### What a hook must do (all 3 required)
+1. **STOP the scroll in under 2 seconds**: a bold claim, a surprising number from research, a question that hurts, or a "wrong belief" reversal.
+2. **Create an open loop**: promise something the viewer wants but does not yet have ("ye 1 setting badal ke screen time 66% kam hoti hai, par ye setting koi nahi batata").
+3. **Be specific**: a number, a name, or a contrast. Vague hooks ("ye bahut important hai", "dekho kya hota hai") are FAIL.
+
+### Allowed hook patterns (pick one, adapt to the topic)
+- **Wrong belief**: "Willpower ki kami nahi, app ka design tumhe phasa raha hai." (11 words)
+- **Shocking number** (must be in research.json with a source): "Ek average user din me 150 baar phone check karta hai."
+- **Direct challenge**: "Agar tum ye 3 cheezein nahi badlogi, to 2 saal baad bhi yahi problem hogi."
+- **Before/after tease**: "Maine 10 din me screen time aadha kiya. Sirf ye 1 cheez badli."
+- **Question that the viewer must answer in their head**: "Tumhara phone tumhe control karta hai, ya tum usse?"
+
+### Forbidden hooks (FAIL)
+- Any greeting or channel intro ("Namaste", "Hello dosto", "Hey guys")
+- "Aaj ke video mein..." / "Is video mein hum dekhenge..."
+- Topic named without tension ("Aaj hum revision ke baare mein baat karenge")
+- A hook with no number, no contrast and no question
+- A hook longer than 12 words (must be readable in 2 seconds on screen)
+
+### Length and delivery
+- **Hook**: 8–12 words, one sentence or two short ones.
+- **On screen**: The hook is the FIRST caption block, large, with the key word in Instrument Serif Italic. Not a small label.
+- **Voice**: Spoken with energy (+8% rate, no long pause in the first 1.5 seconds).
+- **First frame**: The first frame must already show the main visual (no fade-in from black longer than 4 frames).
+
+### Script checklist (agent must output this table before the script)
+| Check | Required | Result |
+|---|---|---|
+| Hook is the first sentence | yes | PASS/FAIL |
+| Hook has a number, contrast or question | yes | PASS/FAIL |
+| Hook is 8–12 words | yes | PASS/FAIL |
+| Hook has no greeting or topic-only line | yes | PASS/FAIL |
+| Open loop present (promise in hook, payoff at end) | yes | PASS/FAIL |
+| Every number in script exists in research.json with source | yes | PASS/FAIL |
+
+*Rule: If any row is FAIL, rewrite the hook. Do not continue to the voiceover.*
+
+### Payoff rule
+The ending must answer the open loop of the hook in one sentence, then give one action (CTA). A hook promise with no payoff = FAIL.
+
 
 ## PRONUNCIATION & VOICE STANDARDS
 - Primary Engine: ElevenLabs `eleven_multilingual_v2` using Voice R (`q1R2Hozu3EhS1EtqVHdJ`) with multi-key rotation and silence/pause compression (>0.25s pauses reduced to 0.12s micro-breaths).

@@ -83,7 +83,34 @@ Why: a 63KB SKILL.md makes the agent skim and ignore rules. Short SKILL.md + rea
 ## 3. PIPELINE (strict order, each step must write a file proving it happened)
 
 1. **RESEARCH** -> `research.json`: official name, logo (SVG or PNG from the official source, saved to `public/logos/`), 5–8 real facts, real numbers, repo/site URL, 1 benchmark or before/after metric. If no logo can be fetched, draw a clean monogram, never a random icon.
-2. **SCRIPT** -> `script.txt`: Hinglish voiceover, 80–120 words, one idea per sentence, each sentence = one beat. Hook in the first 2 seconds.
+2. **SCRIPT** -> `script.txt`: Hinglish voiceover, 80–120 words, one idea per sentence, each sentence = one beat. **Hook must open in the first 2 seconds (non-negotiable)**.
+
+### Mandatory Viral Hook Rules (Step 2 Hard Gate):
+- **Where it lives**: Beat 1 (0–3 seconds) of `script.txt`. No greetings ("Namaste", "Hey guys"), no "aaj hum baat karenge", no intro.
+- **What a hook must do (All 3 required)**:
+  1. STOP scroll in <2 seconds: bold claim, shocking number from research, question that hurts, or wrong belief reversal.
+  2. Create an open loop: promise something the viewer wants but doesn't have yet.
+  3. Be specific: concrete number, name, or contrast. Vague hooks are instant FAIL.
+- **Allowed Patterns**:
+  - Wrong belief: "Willpower ki kami nahi, app ka design tumhe phasa raha hai." (11 words)
+  - Shocking number (sourced in research.json): "Ek average user din me 150 baar phone check karta hai."
+  - Direct challenge: "Agar tum ye 3 cheezein nahi badlogi, to 2 saal baad bhi yahi problem hogi."
+  - Before/after tease: "Maine 10 din me screen time aadha kiya. Sirf ye 1 cheez badli."
+  - Mental question: "Tumhara phone tumhe control karta hai, ya tum usse?"
+- **Forbidden Hooks (FAIL)**: Any greeting/channel intro, "Aaj ke video mein...", topic named without tension, no number/contrast/question, longer than 12 words.
+- **Length & Delivery**: 8–12 words. Key word in Instrument Serif Italic on screen. Spoken with +8% rate. First frame shows visual.
+- **Pre-Script Checklist (Mandatory Gate)**:
+  | Check | Required | Result |
+  |---|---|---|
+  | Hook is the first sentence | yes | PASS/FAIL |
+  | Hook has a number, contrast or question | yes | PASS/FAIL |
+  | Hook is 8–12 words | yes | PASS/FAIL |
+  | Hook has no greeting or topic-only line | yes | PASS/FAIL |
+  | Open loop present (promise in hook, payoff at end) | yes | PASS/FAIL |
+  | Every number in script exists in research.json with source | yes | PASS/FAIL |
+  *(If any row is FAIL, rewrite before proceeding to TTS).*
+- **Payoff Rule**: The ending must resolve the open loop in one sentence before the CTA.
+
 3. **TTS + WORD TIMESTAMPS** -> `words.json` (`[{word,start,end}]`). Beat boundaries are derived from this file. Captions are generated FROM this file, word by word. Never hand-type caption timing.
 4. **BEAT PLAN** -> `beats.json`: for every beat: start, end, spoken words, which component, which REAL data goes inside, camera move. A beat with generic placeholder data = plan rejected, redo.
 5. **BUILD** Remotion comp using only `components/`. Each beat = layered scene (min 3 layers: background grid, main UI, floating detail chip). Every scene wrapped in CameraRig.

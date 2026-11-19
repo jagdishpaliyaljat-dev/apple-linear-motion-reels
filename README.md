@@ -66,11 +66,13 @@ apple-linear-motion-reels/
 ## 🚀 The 9-Step Sequential Pipeline
 
 1. **RESEARCH** (`research.json`): Collect real facts, metrics, logos, and benchmarks. No invented statistics.
-2. **SCRIPT** (`script.txt` & `script_devanagari.txt`): 80–120 words, 10–13 beats, strong hook in the first 2 seconds.
+2. **SCRIPT & VIRAL HOOK** (`script.txt` & `script_devanagari.txt`): 80–120 words, 10–13 beats.
+   - **Hook Gate (Beat 1, 0–3s)**: 8–12 words, stopping scroll in <2s, creating an open loop with payoff at the end, and having a number, contrast, or question.
+   - **6-Point Pre-Script Checklist**: All 6 checks must PASS before voiceover synthesis.
 3. **VOICEOVER & TIMESTAMPS** (`words.json`): Synthesized with ElevenLabs Voice R, silence-compressed, verified pitch (80–200 Hz).
 4. **BEAT PLAN** (`beats.json`): Map every beat to a component, real facts, and camera choreography.
 5. **COMPONENTS & SCENE GRAPH** (`src/Reel.tsx`): Assemble layered Remotion compositions using `components/`.
-6. **PREFLIGHT QUALITY GATE** (`python3 scripts/preflight.py`): 8/8 automated checks must pass.
+6. **PREFLIGHT QUALITY GATE** (`python3 scripts/preflight.py`): 9/9 automated checks must pass (including viral hook gate).
 7. **CLOUD RENDER**: Git push to main triggers GitHub Actions Chromium runner.
 8. **AUDIO MASTERING** (`scripts/mix_audio.sh`): 15-SFX layering, +10dB boosted punch, normalized to -16 LUFS True-Peak <= -1.5 dBTP.
 9. **DELIVERY**: Video copied to Android `Download/`, `Movies/`, and `DCIM/` with media scanner broadcast.
