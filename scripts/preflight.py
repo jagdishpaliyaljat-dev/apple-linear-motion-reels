@@ -66,9 +66,9 @@ else:
         fail("voice_f0", f"could not measure: {e}")
 
 # 3. caption lint (Hinglish glue rules)
-POST = {"ne", "ko", "ka", "ki", "ke", "se", "mein", "me", "par", "pe", "tak", "liye", "sath", "bina"}
+POST = {"ne", "ko", "ka", "ki", "ke", "se", "mein", "me", "par", "pe", "tak", "liye", "sath"}
 AUX = {"hai", "hain", "tha", "thi", "the", "ho", "gaya", "gayi", "kiya", "karta", "karti", "karte"}
-LEAD = {"aur", "ya", "jo", "ye", "yeh", "wo", "woh", "kya", "agar", "lekin", "jab", "ab", "ek",
+LEAD = {"aur", "ya", "jo", "ye", "yeh", "wo", "woh", "kya", "agar", "lekin", "jab", "ab", "ek", "bina",
         "a", "an", "the", "to", "of", "in", "for", "with"}
 caps = load("captions.json")
 if not isinstance(caps, list) or not caps:
